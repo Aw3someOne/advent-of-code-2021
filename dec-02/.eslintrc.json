@@ -1,0 +1,14 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "@typescript-eslint/quotes": [1, "single"],
+    "@typescript-eslint/semi": [1, "always"],
+    "@typescript-eslint/member-delimiter-style": [1],
+    "comma-dangle": [1, "always-multiline"],
+    "comma-spacing": [1, {"after": true, "before": false}],
+    "eol-last": [1, "always"],
+    "quotes": [0],
+    "semi": [0]
+  }
+}
