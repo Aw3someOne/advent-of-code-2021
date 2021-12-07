@@ -1,5 +1,5 @@
 import readline from 'readline';
-import { countIncreases } from './count-increases';
+import { countIncreases, countIncreasesWithWindow } from './count-increases';
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -13,5 +13,6 @@ rl.on('line', (str) => {
 });
 
 rl.on('close', () => {
-  console.log(countIncreases(input));
+  console.log('part 1: ', countIncreases(input));
+  console.log('part 2: ', countIncreasesWithWindow(input, 3));
 });
