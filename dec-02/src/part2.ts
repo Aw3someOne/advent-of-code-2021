@@ -1,24 +1,22 @@
-export function dive(commands: string[]): number {
+export function part2(commands: string[]): number {
   let x = 0;
   let depth = 0;
+  let aim = 0;
   commands.forEach(command => {
     const [direction, amountStr] = command.split(' ');
     const amount = +amountStr;
     switch (direction) {
       case 'forward':
         x += amount;
-        break;
-      case 'backward':
-        x -= amount;
+        depth += amount * aim;
         break;
       case 'up':
-        depth -= amount;
+        aim -= amount;
         break;
       case 'down':
-        depth += amount;
+        aim += amount;
         break;
     }
   });
-
   return x * depth;
 }

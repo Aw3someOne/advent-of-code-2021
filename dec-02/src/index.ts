@@ -1,5 +1,6 @@
 import readline from 'readline';
-import { dive } from './dive';
+import { part1 } from './part1';
+import { part2 } from './part2';
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -13,5 +14,6 @@ rl.on('line', (str) => {
 });
 
 rl.on('close', () => {
-  console.log('part 1: ', dive(input));
+  console.log('part 1: ', part1(input));
+  console.log('part 2: ', part2(input));
 });
