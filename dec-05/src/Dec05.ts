@@ -31,26 +31,34 @@ export class Dec05 {
       .map(() => Array.from<number>({ length: numRows }).fill(0));
   }
 
-  public part1(): number {
-    this.lines.forEach(({ x1, y1, x2, y2 }) => {
+  private makeOverlapCalculator = (includeDiagonals: boolean) => {
+    return ({ x1, y1, x2, y2 }: Line): void => {
       if (x1 === x2) {
-        const low = Math.min(y1, y2);
-        const high = Math.max(y1, y2);
-        for (let y = low; y <= high; y++) {
+        for (let y = Math.min(y1, y2); y <= Math.max(y1, y2); y++) {
           this.danger[x1][y]++;
         }
       } else if (y1 === y2) {
-        const low = Math.min(x1, x2);
-        const high = Math.max(x1, x2);
-        for (let x = low; x <= high; x++) {
+        for (let x = Math.min(x1, x2); x <= Math.max(x1, x2); x++) {
           this.danger[x][y1]++;
         }
+      } else if (includeDiagonals) {
+        const dx = x2 - x1;
+        const dy = y2 - y1;
+        const dydx = dy / dx;
+        for (let i = Math.min(0, dx); i <= Math.max(0, dx); i++) {
+          this.danger[x1 + i][y1 + dydx * i]++;
+        }
       }
-    });
+    };
+  };
+
+  public part1(): number {
+    this.lines.forEach(this.makeOverlapCalculator(false));
     return this.danger.flatMap(d => d).filter(d => d >= 2).length;
   }
 
   public part2(): number {
-    throw new Error('not implemented');
+    this.lines.forEach(this.makeOverlapCalculator(true));
+    return this.danger.flatMap(d => d).filter(d => d >= 2).length;
   }
 }
