@@ -1,7 +1,4 @@
-import { part1 } from './part1';
-import { part2 } from './part2';
-
-type TestCase<T extends (...args: any[]) => any> = [Parameters<T>, ReturnType<T>];
+import { Dec04 } from './Dec04';
 
 const testInput: string[] = [
   '7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1',
@@ -25,22 +22,24 @@ const testInput: string[] = [
   ' 2  0 12  3  7',
 ];
 
-const p1: TestCase<typeof part1>[] = [
+const p1: [[string[]], number][] = [
   [[testInput], 4512],
 ];
 
 describe('should work', () => {
   it.each(p1)('should work', (params, expected) => {
-    expect(part1(...params)).toEqual(expected);
+    const dec04 = new Dec04(...params);
+    expect(dec04.part1()).toEqual(expected);
   });
 });
 
-// const p2: TestCase<typeof part2>[] = [
-//   [[testInput], 0],
-// ];
+const p2: [[string[]], number][] = [
+  [[testInput], 1924],
+];
 
-// describe('should work', () => {
-//   it.each(p2)('should work', (params, expected) => {
-//     expect(part2(...params)).toEqual(expected);
-//   });
-// });
+describe('should work', () => {
+  it.each(p2)('should work', (params, expected) => {
+    const dec04 = new Dec04(...params);
+    expect(dec04.part2()).toEqual(expected);
+  });
+});

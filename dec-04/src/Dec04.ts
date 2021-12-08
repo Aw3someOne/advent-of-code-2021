@@ -62,18 +62,50 @@ function parseInput(input: string[]) {
   return { draws, boards: lines.map(board => new Board(board)) };
 }
 
-export function part1(input: string[]): number {
-  const { draws, boards } = parseInput(input);
-  for (const n of draws) {
-    boards.forEach(board => board.draw(n));
-    const winner = boards.find(board => board.isBingo());
-    if (!winner) {
-      continue;
+export class Dec04 {
+  private draws: number[];
+  private boards: Board[];
+
+  public constructor(input: string[]) {
+    ({ draws: this.draws, boards: this.boards } = parseInput(input));
+  }
+
+  public part1(): number {
+    for (const n of this.draws) {
+      this.boards.forEach(board => board.draw(n));
+      const winner = this.boards.find(board => board.isBingo());
+      if (!winner) {
+        continue;
+      }
+
+      const score = winner.score();
+      return score * n;
     }
 
-    const score = winner.score();
+    throw new Error('should not reach here');
+  }
+
+  public part2(): number {
+    const drawsIterator = this.iterate();
+    let n: number;
+    do {
+      n = drawsIterator.next().value;
+      this.boards.forEach(board => board.draw(n));
+      this.boards = this.boards.filter(board => !board.isBingo());
+    } while (this.boards.length > 1);
+
+    const [last] = this.boards;
+    while (!last.isBingo()) {
+      n = drawsIterator.next().value;
+      last.draw(n);
+    }
+    const score = last.score();
     return score * n;
   }
 
-  throw new Error('should not reach here');
+  private * iterate(): Generator<number> {
+    for (let i = 0; i < this.draws.length; i++) {
+      yield this.draws[i];
+    }
+  }
 }

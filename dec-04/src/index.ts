@@ -1,6 +1,5 @@
 import readline from 'readline';
-import { part1 } from './part1';
-import { part2 } from './part2';
+import { Dec04 } from './Dec04';
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -14,6 +13,7 @@ rl.on('line', (str) => {
 });
 
 rl.on('close', () => {
-  console.log('part 1: ', part1(input));
-  // console.log('part 2: ', part2(input));
+  const engine = new Dec04(input);
+  console.log('part 1: ', engine.part1());
+  console.log('part 2: ', engine.part2());
 });
