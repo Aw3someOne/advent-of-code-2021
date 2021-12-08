@@ -7,10 +7,10 @@ const testInput: string[] = [
   '7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1',
   '',
   '22 13 17 11  0',
-  '8  2 23  4 24',
+  ' 8  2 23  4 24',
   '21  9 14 16  7',
-  '6 10  3 18  5',
-  '1 12 20 15 19',
+  ' 6 10  3 18  5',
+  ' 1 12 20 15 19',
   '',
   '3 15  0  2 22',
   '9 18 13 17  5',
@@ -22,11 +22,11 @@ const testInput: string[] = [
   '10 16 15  9 19',
   '18  8 23 26 20',
   '22 11 13  6  5',
-  '2  0 12  3  7',
+  ' 2  0 12  3  7',
 ];
 
 const p1: TestCase<typeof part1>[] = [
-  [[testInput], 0],
+  [[testInput], 4512],
 ];
 
 describe('should work', () => {
@@ -35,12 +35,12 @@ describe('should work', () => {
   });
 });
 
-const p2: TestCase<typeof part2>[] = [
-  [[testInput], 0],
-];
+// const p2: TestCase<typeof part2>[] = [
+//   [[testInput], 0],
+// ];
 
-describe('should work', () => {
-  it.each(p2)('should work', (params, expected) => {
-    expect(part2(...params)).toEqual(expected);
-  });
-});
+// describe('should work', () => {
+//   it.each(p2)('should work', (params, expected) => {
+//     expect(part2(...params)).toEqual(expected);
+//   });
+// });

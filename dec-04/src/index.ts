@@ -15,5 +15,5 @@ rl.on('line', (str) => {
 
 rl.on('close', () => {
   console.log('part 1: ', part1(input));
-  console.log('part 2: ', part2(input));
+  // console.log('part 2: ', part2(input));
 });
