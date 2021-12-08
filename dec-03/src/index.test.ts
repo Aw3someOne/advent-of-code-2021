@@ -28,12 +28,12 @@ describe('should work', () => {
   });
 });
 
-// const p2: TestCase<typeof part2>[] = [
-//   [[testInput], 900],
-// ];
+const p2: TestCase<typeof part2>[] = [
+  [[testInput], 230],
+];
 
-// describe('should work', () => {
-//   it.each(p2)('should work', (params, expected) => {
-//     expect(part2(...params)).toEqual(expected);
-//   });
-// });
+describe('should work', () => {
+  it.each(p2)('should work', (params, expected) => {
+    expect(part2(...params)).toEqual(expected);
+  });
+});

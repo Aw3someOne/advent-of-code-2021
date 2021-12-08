@@ -1,5 +1,4 @@
 export function part1(input: string[]): number {
-  const mostCommon: string[] = [];
   const g = [];
   const e = [];
   for (let i = 0; i < input[0].length; i++) {
