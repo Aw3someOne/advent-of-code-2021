@@ -1,26 +1,29 @@
-import { part1 } from './part1';
-import { part2 } from './part2';
+import { Template } from './Template';
 
-type TestCase<T extends (...args: any[]) => any> = [Parameters<T>, ReturnType<T>];
+type TestCase = [[string[]], number];
 
-const testInput: string[] = [];
+const testInput: string[] = [
 
-const p1: TestCase<typeof part1>[] = [
+];
+
+const p1: TestCase[] = [
   [[testInput], 0],
 ];
 
 describe('should work', () => {
   it.each(p1)('should work', (params, expected) => {
-    expect(part1(...params)).toEqual(expected);
+    const engine = new Template(...params);
+    expect(engine.part1()).toEqual(expected);
   });
 });
 
-const p2: TestCase<typeof part2>[] = [
+const p2: TestCase[] = [
   [[testInput], 0],
-];
+]
 
 describe('should work', () => {
   it.each(p2)('should work', (params, expected) => {
-    expect(part2(...params)).toEqual(expected);
+    const engine = new Template(...params);
+    expect(engine.part2()).toEqual(expected);
   });
 });
