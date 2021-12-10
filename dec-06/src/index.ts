@@ -14,6 +14,6 @@ rl.on('line', (str) => {
 
 rl.on('close', () => {
   const engine = new Dec06(input);
-  console.log('part 1: ', engine.part1());
-  // console.log('part 2: ', engine.part2());
+  // console.log('part 1: ', engine.part1(80));
+  console.log('part 2: ', engine.part2(256));
 });
