@@ -1,10 +1,11 @@
+
+import fs from 'fs';
+import { EOL } from 'os';
 import { Template } from './Template';
 
 type TestCase = [[string[]], number];
 
-const testInput: string[] = [
-
-];
+const testInput = fs.readFileSync('test').toString().split(EOL);
 
 const p1: TestCase[] = [
   [[testInput], 0],
