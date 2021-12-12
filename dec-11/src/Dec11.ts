@@ -52,7 +52,11 @@ export class Dec11 {
   }
 
   public part2(): number {
-    throw new Error('not implemented');
+    for (let i = 1;; i++) {
+      if (this.simulate() === this.flatnodes.length) {
+        return i;
+      }
+    }
   }
 
   private simulate(): number {
