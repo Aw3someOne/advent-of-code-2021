@@ -19,13 +19,13 @@ describe('should work', () => {
   });
 });
 
-// const p2: TestCase[] = [
-//   [[testInput], 0],
-// ];
+const p2: TestCase[] = [
+  [[testInput], 288957],
+];
 
-// describe('should work', () => {
-//   it.each(p2)('should work', (params, expected) => {
-//     const engine = new Dec10(...params);
-//     expect(engine.part2()).toEqual(expected);
-//   });
-// });
+describe('should work', () => {
+  it.each(p2)('should work', (params, expected) => {
+    const engine = new Dec10(...params);
+    expect(engine.part2()).toEqual(expected);
+  });
+});
