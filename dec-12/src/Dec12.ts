@@ -38,7 +38,8 @@ export class Dec12 {
   }
 
   public part2(): number {
-    throw new Error('not implemented');
+    this.dfs2([], {}, this.caveDict['start']);
+    return this.pathCount;
   }
 
   private dfs(visited: Set<Cave>, cave: Cave) {
@@ -50,6 +51,30 @@ export class Dec12 {
       visited.add(cave);
     }
     cave.neighbors.filter(w => !visited.has(w)).forEach(w => this.dfs(new Set(visited), w));
+  }
+
+  private paths: Cave[][] = [];
+
+  private dfs2(path: Cave[], visited: Dictionary<number>, cave: Cave) {
+    path.push(cave);
+    if (cave.name === 'end') {
+      this.pathCount++;
+      this.paths.push(path);
+      return;
+    }
+    if (isCaveSmall(cave)) {
+      visited[cave.name] ??= 0;
+      visited[cave.name]++;
+    }
+    cave.neighbors
+      .filter(w => {
+        if (w.name === 'start') {
+          return false;
+        }
+        const visitedTwice = Object.values(visited).some(v => v === 2);
+        return (visited[w.name] ?? 0) < (1 + (visitedTwice ? 0 : 1));
+      })
+      .forEach(w => this.dfs2(path.slice(0), { ...visited }, w));
   }
 }
 
