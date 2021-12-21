@@ -17,14 +17,3 @@ describe('should work', () => {
     expect(engine.part1()).toEqual(expected);
   });
 });
-
-const p2: TestCase[] = [
-  // [[testInput], 0],
-];
-
-// describe('should work', () => {
-//   it.each(p2)('should work', (params, expected) => {
-//     const engine = new Dec13(...params);
-//     expect(engine.part2()).toEqual(expected);
-//   });
-// });

@@ -35,33 +35,57 @@ export class Dec13 {
 
   public part1(): number {
     const [firstFold] = this.folds;
+    return this.foldPaper(firstFold).length;
+  }
+
+  public part2() {
+    const uniqueDots = this.folds.reduce((p, c) => {
+      return this.foldPaper(c, p);
+    }, this.dots);
+
+    const max = uniqueDots.reduce((p, c) => {
+      return {
+        x: Math.max(c.x, p.x),
+        y: Math.max(c.y, p.y),
+      };
+    }, { x: 0, y: 0 });
+
+    const paper: boolean[][] = Array.from({ length: max.y + 1 }).map(() => Array.from<boolean>({ length: max.x + 1 }).fill(false));
+    uniqueDots.forEach(dot => {
+      paper[dot.y][dot.x] = true;
+    });
+    paper.forEach(row => {
+      console.log(row.map(b => b ? '#' : '.').join(''));
+    });
+  }
+
+  private foldPaper(fold: Fold, dotArr = this.dots) {
     const uniqueCoords = new Set<string>();
-    if (firstFold.axis === 'x') {
-      this.dots.forEach(dot => {
-        if (dot.x < firstFold.coord) { // don't transform
+    if (fold.axis === 'x') {
+      dotArr.forEach(dot => {
+        if (dot.x < fold.coord) { // don't transform
           uniqueCoords.add([dot.x, dot.y].join(','));
         } else {
-          const deltaX = dot.x - firstFold.coord;
+          const deltaX = dot.x - fold.coord;
           const newX = dot.x - 2 * deltaX;
           uniqueCoords.add([newX, dot.y].join(','));
         }
       });
     }
-    if (firstFold.axis === 'y') {
-      this.dots.forEach(dot => {
-        if (dot.y < firstFold.coord) { // don't transform
+    if (fold.axis === 'y') {
+      dotArr.forEach(dot => {
+        if (dot.y < fold.coord) { // don't transform
           uniqueCoords.add([dot.x, dot.y].join(','));
         } else {
-          const deltaY = dot.y - firstFold.coord;
+          const deltaY = dot.y - fold.coord;
           const newY = dot.y - 2 * deltaY;
           uniqueCoords.add([dot.x, newY].join(','));
         }
       });
     }
-    return uniqueCoords.size;
-  }
-
-  public part2(): number {
-    throw new Error('not implemented');
+    return Array.from(uniqueCoords).map(s => {
+      const [x, y] = s.split(',');
+      return { x: +x, y: +y };
+    });
   }
 }
