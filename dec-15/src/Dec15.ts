@@ -70,7 +70,63 @@ export class Dec15 {
   }
 
   public part2(): number {
-    throw new Error('not implemented');
+    const scaleFactor = 5;
+    for (let r = 0; r < scaleFactor; r++) {
+      for (let c = 0; c < scaleFactor; c++) {
+        if (!(r | c)) {
+          continue;
+        }
+        this.flatNodes.forEach(node => {
+          const rr = r * this.numRows + node.row;
+          const cc = c * this.numCols + node.col;
+          this.nodes[rr] ??= [];
+          const d = (node.danger + r + c);
+          this.nodes[rr][cc] = {
+            row: rr,
+            col: cc,
+            danger: d > 9 ? d - 9 : d,
+            neighbors: [],
+          };
+        });
+      }
+    }
+
+    for (let r = 0; r < this.nodes.length; r++) {
+      for (let c = 0; c < this.nodes[r].length; c++) {
+        const node = this.nodes[r][c];
+        node.neighbors = []; // recalculating adjacency lists
+        {
+          const up = r - 1;
+          if (up >= 0) {
+            node.neighbors.push(this.nodes[up][c]);
+          }
+        }
+        {
+          const down = r + 1;
+          if (down < this.numRows * scaleFactor) {
+            node.neighbors.push(this.nodes[down][c]);
+          }
+        }
+        {
+          const left = c - 1;
+          if (left >= 0) {
+            node.neighbors.push(this.nodes[r][left]);
+          }
+        }
+        {
+          const right = c + 1;
+          if (right < this.numCols * scaleFactor) {
+            node.neighbors.push(this.nodes[r][right]);
+          }
+        }
+      }
+    }
+
+    this.flatNodes = this.nodes.flatMap(n => n);
+
+    // problem says to omit starting node's danger level
+    const [, ...safestPath] = this.aStar(this.nodes[0][0], this.nodes[this.numRows * scaleFactor - 1][this.numCols * scaleFactor - 1]);
+    return safestPath.reduce((p, c) => p + c.danger, 0);
   }
 
   private reconstruct_path(prev: Map<Node, Node>, curr: Node): Node[] {

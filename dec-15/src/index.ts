@@ -1,5 +1,5 @@
 import readline from 'readline';
-import { Dec15 } from "./Dec15";
+import { Dec15 } from './Dec15';
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -14,6 +14,6 @@ rl.on('line', (str) => {
 
 rl.on('close', () => {
   const engine = new Dec15(input);
-  console.log('part 1: ', engine.part1());
-  // console.log('part 2: ', engine.part2());
+  // console.log('part 1: ', engine.part1());
+  console.log('part 2: ', engine.part2());
 });
